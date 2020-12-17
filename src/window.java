@@ -213,7 +213,7 @@ public class window extends JFrame {
                 // vérifier d'abord la ligne sélectionnée
                 /*if(table.getSelectedRow() != -1)
                 {*/
-        ajouter.addActionListener(new ActionListener() {
+        ajoutBouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Ajouter les données du formulaire
