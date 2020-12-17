@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,6 +56,12 @@ public class window extends JFrame {
 
         JMenu about = new JMenu();
         about.setText("About");
+        about.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"version 1.0\n Lucas Antoine Brendan Amaury");
+            }
+        });
         menuBar.add(about);
 
 
@@ -147,8 +154,9 @@ public class window extends JFrame {
                 { "Eragon", "C.Paolini", "Un monde de dragon", "2" ,"",""},
         };
         String [] col={"Nom", "Auteur", "Résumé", "Colonne", "Rangée", "Parution"};
-
-        JTable table=new JTable(d, col);
+        DefaultTableModel tablemodel=new DefaultTableModel(d,col);
+        JTable table=new JTable(tablemodel );
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gbc.gridwidth = 6;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -157,12 +165,30 @@ public class window extends JFrame {
         gbc.gridy = 1;
         panel.add(table, gbc);
 
+
         //test button
 
         JButton ajouter = new JButton("Ajouter");
         gbc.gridy=2;
         panel.add(ajouter,gbc);
         JButton supprimer = new JButton("Supprimer");
+
+
+
+        supprimer.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {
+                // vérifier d'abord la ligne sélectionnée
+                if(table.getSelectedRow() != -1)
+                {
+                    // supprimer la ligne sélectionnée du modèle de table
+                    tablemodel.removeRow(table.getSelectedRow());
+                    JOptionPane.showMessageDialog(null, "Deleted successfully");
+                }
+            }
+        });
         gbc.gridx = 5;
         gbc.gridy=2;
         panel.add(supprimer,gbc);
