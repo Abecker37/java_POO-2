@@ -7,11 +7,7 @@ import java.awt.event.ActionListener;
 public class window extends JFrame {
     public window() {
         super("Bibliothèque");
-<<<<<<< Updated upstream
         setSize(1080, 720);
-=======
-        setSize(750, 500);
->>>>>>> Stashed changes
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         GridBagLayout myLayout = new GridBagLayout();
@@ -44,6 +40,13 @@ public class window extends JFrame {
         });
 
         JMenuItem fermer = new JMenuItem("Fermer");
+            fermer.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                            System.exit(0);
+
+                    }
+            });
         fichier.add(fermer);
 
         JMenu edit = new JMenu();
@@ -140,19 +143,10 @@ public class window extends JFrame {
 
 
         String[][] d = {
-<<<<<<< Updated upstream
                 { "Harry Potter", "J.K Rowling" ,"", "5" ,"",""},
                 { "Eragon", "C.Paolini", "Un monde de dragon", "2" ,"",""},
         };
-        String [] col={"Nom", "Auteur", "Résumé", "Colonne","Rangée","Parution"};
-=======
-                { "Harry Potter", "J.K Rowling" ,"", "5", "2", "2009"},
-                { "Eragon", "C.Paolini", "Un monde de dragon", "2", "2","2000"},
-                { "", "", "", "", "",""},
-                { "", "", "", "", "",""},
-        };
         String [] col={"Nom", "Auteur", "Résumé", "Colonne", "Rangée", "Parution"};
->>>>>>> Stashed changes
 
         JTable table=new JTable(d, col);
         gbc.gridwidth = 6;
