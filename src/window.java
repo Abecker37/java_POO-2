@@ -136,13 +136,13 @@ public class window extends JFrame {
         gbc.gridy = 1;
         panel.add(auteura, gbc);
         gbc.gridy = 2;
-        panel.add(parutiona, gbc);
+        panel.add(resumea, gbc);
         gbc.gridy = 3;
         panel.add(colonna, gbc);
         gbc.gridy = 4;
         panel.add(rangea, gbc);
         gbc.gridy = 5;
-        panel.add(resumea, gbc);
+        panel.add(parutiona, gbc);
 
         //constraints JButton
         gbc.gridx = 9;
