@@ -1,10 +1,14 @@
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 
 public class window extends JFrame {
@@ -68,12 +72,6 @@ public class window extends JFrame {
         about.add(aboutUsButton);
 
 
-
-
-
-
-        // JButton
-        JButton valide = new JButton("Valider");
 
 
         //JLabel
@@ -146,11 +144,6 @@ public class window extends JFrame {
         gbc.gridy = 5;
         panel.add(parutiona, gbc);
 
-        //constraints JButton
-        gbc.gridx = 9;
-        gbc.gridy = 6;
-        panel.add(valide, gbc);
-
 
         String[][] d = {
                 { "Harry Potter", "J.K Rowling" ,"", "5" ,"",""},
@@ -172,6 +165,86 @@ public class window extends JFrame {
             return c;
         }
     };
+
+        // JButton
+        JButton valide = new JButton("Valider");
+
+        valide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tablemodel.setValueAt(titre.getText(), table.getSelectedRow(), 0);
+                d[table.getSelectedRow()][0] = titre.getText();
+                tablemodel.fireTableCellUpdated(table.getSelectedRow(), 0);
+
+                tablemodel.setValueAt(auteur.getText(), table.getSelectedRow(), 1);
+                d[table.getSelectedRow()][1] = auteur.getText();
+                tablemodel.fireTableCellUpdated(table.getSelectedRow(), 1);
+
+                tablemodel.setValueAt(resume.getText(), table.getSelectedRow(), 2);
+                d[table.getSelectedRow()][2] = resume.getText();
+                tablemodel.fireTableCellUpdated(table.getSelectedRow(), 2);
+
+                tablemodel.setValueAt(colonne.getText(), table.getSelectedRow(), 3);
+                d[table.getSelectedRow()][3] = colonne.getText();
+                tablemodel.fireTableCellUpdated(table.getSelectedRow(), 3);
+
+                tablemodel.setValueAt(rangee.getText(), table.getSelectedRow(), 4);
+                d[table.getSelectedRow()][4] = rangee.getText();
+                tablemodel.fireTableCellUpdated(table.getSelectedRow(), 4);
+
+                tablemodel.setValueAt(parution.getText(), table.getSelectedRow(), 5);
+                d[table.getSelectedRow()][5] = parution.getText();
+                tablemodel.fireTableCellUpdated(table.getSelectedRow(), 5);
+
+
+                titre.setText("");
+                auteur.setText("");
+                resume.setText("");
+                colonne.setText("");
+                rangee.setText("");
+                parution.setText("");
+
+            }
+        });
+
+        //constraints JButton
+        gbc.gridx = 9;
+        gbc.gridy = 6;
+        panel.add(valide, gbc);
+
+
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                titre.setText(d[table.getSelectedRow()][0]);
+                auteur.setText(d[table.getSelectedRow()][1]);
+                resume.setText(d[table.getSelectedRow()][2]);
+                colonne.setText(d[table.getSelectedRow()][3]);
+                rangee.setText(d[table.getSelectedRow()][4]);
+                parution.setText(d[table.getSelectedRow()][5]);
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gbc.gridwidth = 6;
         gbc.gridx = 0;
@@ -243,7 +316,7 @@ public class window extends JFrame {
                                 parution.setText("");
 
                             }else{
-                                JOptionPane.showMessageDialog(null, "Date nopn correcte");
+                                JOptionPane.showMessageDialog(null, "Date non correcte");
                             }
 
                         }else{
