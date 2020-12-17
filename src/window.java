@@ -5,7 +5,7 @@ import java.awt.*;
 public class window extends JFrame {
     public window() {
         super("Bibliothèque");
-        setSize(500, 500);
+        setSize(650, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         GridBagLayout myLayout = new GridBagLayout();
@@ -125,15 +125,23 @@ public class window extends JFrame {
         int returnVal = chooser.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName());
+                    chooser.getSelectedFile().getName());*/
+
         String[][] d = {
-                { "Sam", "29" ," Twinkle House" },
-                { "Anna Sam", " 27 ", "Happy Villa" },
-                { "Iza Norah", " 4 ", "Happy house" },
+                { "Harry Potter", "J.K Rowling" ,"", "5" },
+                { "Eragon", "C.Paolini", "Un monde de dragon", "2" },
+                { "", "", "", "" },
+                { "", "", "", "" },
         };
-        String [] col={"nom","auteur","résumer","colonne","rangé","parution"};
-        JTable table=new JTable( d, col);
-        panel.add(table,gbc); */
+        String [] col={"Nom", "Auteur", "Résumé", "Colonne"};
+
+        JTable table=new JTable(d, col);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(table.getTableHeader(), gbc);
+        gbc.gridy = 1;
+        panel.add(table, gbc);
+
         setContentPane(panel);
         }
     }
