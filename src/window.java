@@ -8,7 +8,9 @@ public class window extends JFrame {
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
-        setContentPane(panel);
+        GridBagLayout myLayout = new GridBagLayout();
+        panel.setLayout(myLayout);
+
 
         // Menu et sous- menu
         JMenuBar menuBar = new JMenuBar();
@@ -123,7 +125,17 @@ public class window extends JFrame {
         int returnVal = chooser.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName()); */
+                    chooser.getSelectedFile().getName());
+        String[][] d = {
+                { "Sam", "29" ," Twinkle House" },
+                { "Anna Sam", " 27 ", "Happy Villa" },
+                { "Iza Norah", " 4 ", "Happy house" },
+        };
+        String [] col={"nom","auteur","résumer","colonne","rangé","parution"};
+        JTable table=new JTable( d, col);
+        panel.add(table,gbc); */
+        setContentPane(panel);
         }
     }
+
 
