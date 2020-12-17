@@ -120,13 +120,13 @@ public class window extends JFrame {
         gbc.gridy = 1;
         panel.add(auteur, gbc);
         gbc.gridy = 2;
-        panel.add(parution, gbc);
+        panel.add(resume, gbc);
         gbc.gridy = 3;
         panel.add(colonne, gbc);
         gbc.gridy = 4;
         panel.add(rangee, gbc);
         gbc.gridy = 5;
-        panel.add(resume, gbc);
+        panel.add(parution, gbc);
 
 
         //constraints JLabel
