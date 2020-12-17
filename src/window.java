@@ -1,9 +1,11 @@
 import javax.swing.*;
+import javax.swing.table.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class window extends JFrame {
     public window() {
@@ -33,8 +35,8 @@ public class window extends JFrame {
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    System.out.println("You chose to open this file: " +
-                            chooser.getSelectedFile().getName());
+                    File fText = chooser.getSelectedFile();
+                    System.out.println(fText = fText.getAbsoluteFile());
                 }
 
             }
@@ -45,7 +47,6 @@ public class window extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                             System.exit(0);
-
                     }
             });
         fichier.add(fermer);
@@ -59,7 +60,7 @@ public class window extends JFrame {
         about.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"version 1.0\n Lucas Antoine Brendan Amaury");
+                JOptionPane.showMessageDialog(null, "aucun element a selectionn");
             }
         });
         menuBar.add(about);
@@ -155,7 +156,20 @@ public class window extends JFrame {
         };
         String [] col={"Nom", "Auteur", "Résumé", "Colonne", "Rangée", "Parution"};
         DefaultTableModel tablemodel=new DefaultTableModel(d,col);
-        JTable table=new JTable(tablemodel );
+        JTable table = new JTable(tablemodel) {
+        public Component prepareRenderer (TableCellRenderer renderer, int row, int column)
+        {
+            Component c = super.prepareRenderer(renderer, row, column);
+            Color color1 = new Color(220, 220, 220);
+            Color color2 = Color.WHITE;
+            if (!c.getBackground().equals(getSelectionBackground())) {
+                Color coleur = (row % 2 == 0 ? color1 : color2);
+                c.setBackground(coleur);
+                coleur = null;
+            }
+            return c;
+        }
+    };
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gbc.gridwidth = 6;
         gbc.gridx = 0;
@@ -168,12 +182,7 @@ public class window extends JFrame {
 
         //test button
 
-        JButton ajouter = new JButton("Ajouter");
-        gbc.gridy=2;
-        panel.add(ajouter,gbc);
         JButton supprimer = new JButton("Supprimer");
-
-
 
         supprimer.addActionListener(new ActionListener()
         {
@@ -187,11 +196,47 @@ public class window extends JFrame {
                     tablemodel.removeRow(table.getSelectedRow());
                     JOptionPane.showMessageDialog(null, "Deleted successfully");
                 }
+                else{
+                    JOptionPane.showMessageDialog(null, "aucun element a selectionner");
+                }
             }
         });
         gbc.gridx = 5;
         gbc.gridy=2;
         panel.add(supprimer,gbc);
+
+
+        JButton ajoutBouton = new JButton("Ajouter");
+        gbc.gridy=2;
+
+
+                // vérifier d'abord la ligne sélectionnée
+                /*if(table.getSelectedRow() != -1)
+                {*/
+        ajouter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Ajouter les données du formulaire
+                tablemodel.addRow(
+                        new Object[]{
+                                titre.getText(),
+                                auteur.getText(),
+                                parution.getText(),
+                                colonne.getText(),
+                                rangee.getText(),
+                                resume.getText(),
+                        }
+                        );
+                    }
+                });
+        gbc.gridx = 2;
+        gbc.gridy=2;
+        panel.add(ajoutBouton,gbc);
+
+
+
+
+
 
 
         setContentPane(panel);
