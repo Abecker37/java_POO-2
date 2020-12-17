@@ -1,11 +1,13 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class window extends JFrame {
     public window() {
         super("Bibliothèque");
-        setSize(650, 500);
+        setSize(1080, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         GridBagLayout myLayout = new GridBagLayout();
@@ -22,6 +24,20 @@ public class window extends JFrame {
 
         JMenuItem ouvrir = new JMenuItem("Ouvrir");
         fichier.add(ouvrir);
+        ouvrir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers texte", ".txt");
+                chooser.setFileFilter(filter);
+                int returnVal = chooser.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    System.out.println("You chose to open this file: " +
+                            chooser.getSelectedFile().getName());
+                }
+
+            }
+        });
 
         JMenuItem fermer = new JMenuItem("Fermer");
         fichier.add(fermer);
@@ -83,7 +99,7 @@ public class window extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
 
         // constraints JTextField
-        gbc.gridx = 4;
+        gbc.gridx = 9;
         gbc.gridy = 0;
         panel.add(titre, gbc);
         gbc.gridy = 1;
@@ -99,7 +115,7 @@ public class window extends JFrame {
 
 
         //constraints JLabel
-        gbc.gridx = 3;
+        gbc.gridx = 8;
         gbc.gridy = 0;
         panel.add(titra, gbc);
         gbc.gridy = 1;
@@ -114,33 +130,36 @@ public class window extends JFrame {
         panel.add(resumea, gbc);
 
         //constraints JButton
-        gbc.gridx = 4;
+        gbc.gridx = 9;
         gbc.gridy = 6;
         panel.add(valide, gbc);
 
 
-        /* JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers texte", ".txt");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName());*/
-
         String[][] d = {
-                { "Harry Potter", "J.K Rowling" ,"", "5" },
-                { "Eragon", "C.Paolini", "Un monde de dragon", "2" },
-                { "", "", "", "" },
-                { "", "", "", "" },
+                { "Harry Potter", "J.K Rowling" ,"", "5" ,"",""},
+                { "Eragon", "C.Paolini", "Un monde de dragon", "2" ,"",""},
         };
-        String [] col={"Nom", "Auteur", "Résumé", "Colonne"};
+        String [] col={"Nom", "Auteur", "Résumé", "Colonne","Rangée","Parution"};
 
         JTable table=new JTable(d, col);
+        gbc.gridwidth = 6;
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel.add(table.getTableHeader(), gbc);
+        gbc.gridwidth = 6;
         gbc.gridy = 1;
         panel.add(table, gbc);
+
+        //test button
+
+        JButton ajouter = new JButton("Ajouter");
+        gbc.gridy=2;
+        panel.add(ajouter,gbc);
+        JButton supprimer = new JButton("Supprimer");
+        gbc.gridx = 5;
+        gbc.gridy=2;
+        panel.add(supprimer,gbc);
+
 
         setContentPane(panel);
         }
