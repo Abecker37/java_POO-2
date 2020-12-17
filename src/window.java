@@ -57,13 +57,15 @@ public class window extends JFrame {
 
         JMenu about = new JMenu();
         about.setText("About");
-        about.addActionListener(new ActionListener() {
+        menuBar.add(about);
+
+        JMenuItem aboutUsButton = new JMenuItem("About us");
+        aboutUsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "aucun element a selectionn");
-            }
+                JOptionPane.showMessageDialog(null, "Version 1.00 \n Amaury - Brendan - Antoine - Lucas");            }
         });
-        menuBar.add(about);
+        about.add(aboutUsButton);
 
 
 
@@ -216,17 +218,52 @@ public class window extends JFrame {
         ajoutBouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Ajouter les données du formulaire
-                tablemodel.addRow(
-                        new Object[]{
-                                titre.getText(),
-                                auteur.getText(),
-                                parution.getText(),
-                                colonne.getText(),
-                                rangee.getText(),
-                                resume.getText(),
+                try {
+                    if (Integer.parseInt(colonne.getText()) < 6 && Integer.parseInt(colonne.getText())>0){
+                        if (Integer.parseInt(rangee.getText()) < 8 && Integer.parseInt(rangee.getText())>0){
+                            if (Integer.parseInt(parution.getText())<2021){
+
+                                tablemodel.addRow(
+                                        new Object[]{
+                                                titre.getText(),
+                                                auteur.getText(),
+                                                resume.getText(),
+                                                colonne.getText(),
+                                                rangee.getText(),
+                                                parution.getText(),
+
+                                        }
+                                );
+
+                                titre.setText("");
+                                auteur.setText("");
+                                resume.setText("");
+                                colonne.setText("");
+                                rangee.setText("");
+                                parution.setText("");
+
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Date nopn correcte");
+                            }
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Rangée pas bonne");
+
                         }
-                        );
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "colonne pas bonne");
+
+                    }
+
+                }
+                catch (NumberFormatException numberFormatException){
+                    JOptionPane.showMessageDialog(null, "Valeur incorrecte concernant la date, la rangée, ou la colonne");
+
+                }
+
+                //Ajouter les données du formulaire
+
                     }
                 });
         gbc.gridx = 2;
