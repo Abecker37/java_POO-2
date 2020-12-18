@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.ArrayList;
 
 public class window extends JFrame {
     public window() {
@@ -55,9 +56,15 @@ public class window extends JFrame {
             });
         fichier.add(fermer);
 
+        JMenuItem stat= new JMenuItem("Stats");
+        fichier.add(stat);
+
         JMenu edit = new JMenu();
         edit.setText("Edit");
         menuBar.add(edit);
+
+        JMenuItem raz = new JMenuItem("RAZ");
+        edit.add(raz);
 
         JMenu about = new JMenu();
         about.setText("About");
@@ -344,10 +351,25 @@ public class window extends JFrame {
         panel.add(ajoutBouton,gbc);
 
 
+        raz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(tablemodel.getRowCount()-1);
+                for (int i = tablemodel.getRowCount()-1; i>=0; i--){
+                    tablemodel.removeRow(i);
+                }
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                panel.add(table.getTableHeader(), gbc);
+            }
+        });
 
-
-
-
+        stat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Les livres datant d'après 2008 sont : " );
+            }
+        });
 
         setContentPane(panel);
         }
